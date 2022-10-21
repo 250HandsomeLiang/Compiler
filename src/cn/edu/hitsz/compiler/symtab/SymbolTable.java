@@ -48,6 +48,13 @@ public class SymbolTable {
         return  entry;
     }
 
+    public  SymbolTableEntry add(String text,SourceCodeType type){
+        SymbolTableEntry entry=new SymbolTableEntry(text);
+        entry.setType(type);
+        hashMap.put(text,entry);
+        return  entry;
+    }
+
     /**
      * 判断符号表中有无条目
      *
