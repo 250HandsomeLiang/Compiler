@@ -43,7 +43,6 @@ public class IRGenerator implements ActionObserver {
         int index= production.index();
         switch(index){
             case 6 ->{//id.val=E.val
-                System.out.println("id.val=E.val");
                 IRSymbol E=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol sign=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol id=irSymbolList.remove(irSymbolList.size()-1);
@@ -53,7 +52,6 @@ public class IRGenerator implements ActionObserver {
             }
 
             case 7 ->{//return E.val
-                System.out.println("return E.val");
                 IRSymbol E=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol ret=irSymbolList.remove(irSymbolList.size()-1);
                 irSymbolList.add(new IRSymbol(new NonTerminal("S"),null,0));
@@ -61,7 +59,6 @@ public class IRGenerator implements ActionObserver {
             }
 
             case 8 ->{//E.val=E.val+A.val
-                System.out.println("E.val=E.val+A.val");
                 IRSymbol A=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol sign=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol E=irSymbolList.remove(irSymbolList.size()-1);
@@ -71,7 +68,6 @@ public class IRGenerator implements ActionObserver {
             }
 
             case 9 ->{//E.val=E.val-A.val
-                System.out.println("E.val=E.val-A.val");
                 IRSymbol A=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol sign=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol E=irSymbolList.remove(irSymbolList.size()-1);
@@ -81,7 +77,6 @@ public class IRGenerator implements ActionObserver {
             }
 
             case 11 ->{//A.val=E.val*A.val
-                System.out.println("A.val=A.val*B.val");
                 IRSymbol B=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol sign=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol A=irSymbolList.remove(irSymbolList.size()-1);
@@ -91,14 +86,12 @@ public class IRGenerator implements ActionObserver {
             }
 
             case 10,12,14,15 ->{//有语义动作但无中间代码的规约
-                System.out.println("E.val=A.val ...");
                 IRSymbol body=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol head=new IRSymbol(new NonTerminal("HEAD"), body.getIrValue(), body.getVal());
                 irSymbolList.add(head);
             }
 
             case 13 ->{//B.val=E.val
-                System.out.println("B.val=(E.val)");
                 IRSymbol right=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol body=irSymbolList.remove(irSymbolList.size()-1);
                 IRSymbol left=irSymbolList.remove(irSymbolList.size()-1);
