@@ -100,7 +100,6 @@ public class IRGenerator implements ActionObserver {
             }
 
             default -> {
-                System.out.println("Don't need to generate IR code");
             }
         }
     }

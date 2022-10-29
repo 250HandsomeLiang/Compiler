@@ -50,7 +50,6 @@ public class AssemblyGenerator {
         for(int i=0;i<7;i++){
             regSet.add("t"+i);
         }
-        futureUseVariable.testVar();
     }
 
     /**
@@ -59,7 +58,6 @@ public class AssemblyGenerator {
      public void preprocessing(List<Instruction> originInstructions){
          for (Instruction originInstruction : originInstructions) {
              InstructionKind kind = originInstruction.getKind();
-             System.out.println("kind:"+kind+"   "+originInstruction.toString());
              if (kind.equals(InstructionKind.ADD) || kind.equals(InstructionKind.MUL)) {
                  //加法和乘法
                  IRVariable res = originInstruction.getResult();
@@ -203,7 +201,6 @@ public class AssemblyGenerator {
         for(String reg:regSet){
             //若发现有空闲的寄存器则直接使用该寄存器
             if(!this.bMap.containsValue(reg)){
-                System.out.println("index:"+index+"  1:"+name+"->"+reg);
                 return reg;
             }
         }
@@ -211,7 +208,6 @@ public class AssemblyGenerator {
         //如果没有空闲的寄存器则需要替换未来不会被使用变量所占据的寄存器
         IRVariable unusedVar=futureUseVariable.getIRVar(index,bMap);
         String reg=bMap.getV(unusedVar);
-        System.out.println("index:"+index+"  2"+name+"->"+reg+"   unusedVar:"+unusedVar);
         return reg;
     }
 
@@ -224,12 +220,15 @@ public class AssemblyGenerator {
         // TODO: 输出汇编代码到文件
         if(assembleList.size()==instructionList.size()){
             int size=instructionList.size();
-            BufferedWriter writer=new BufferedWriter(new OutputStreamWriter(new FileOutputStream("test.txt")));
+            BufferedWriter writer=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path)));
+            writer.write(".text:\n");
+            writer.flush();
             for(int i=0;i<size;i++){
-                writer.write(assembleList.get(i).toString()+"    #"+instructionList.get(i).toString()+"\n");
+                writer.write("    "+assembleList.get(i).toString()+"    #"+instructionList.get(i).toString()+"\n");
                 writer.flush();
             }
             writer.close();
+            System.out.println("Assembly generate over");
         }else{
             System.err.println("汇编的长度和中间代码无法对齐");
         }

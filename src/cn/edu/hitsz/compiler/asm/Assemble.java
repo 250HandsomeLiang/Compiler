@@ -46,10 +46,8 @@ public class Assemble {
     @Override
     public String toString(){
         if("".equals(this.rs2)){
-            System.out.println("reg:"+this.rd);
             return "%s %s, %s".formatted(this.op,this.rd,this.rs1);
         }else{
-            System.out.println("reg:"+this.rd);
             return "%s %s, %s, %s".formatted(this.op,this.rd,this.rs1,this.rs2);
         }
     }
